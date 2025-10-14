@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Application Security Specialist — Резюме</title>
+  <style>
+    /* Фон — тёмно-фиолетовый градиент */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
+      background: linear-gradient(135deg, #0a0a1a, #110b2e);
+      color: #e2e8f0;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Canvas для Matrix-эффекта */
+    #matrixCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.07; /* Очень прозрачный — еле заметный */
+    }
+
+    .container {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 40px 24px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Стили остались те же — только добавили backdrop */
+    header {
+      text-align: center;
+      margin-bottom: 36px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+    }
+
+    h1 {
+      font-size: 38px;
+      font-weight: 800;
+      background: linear-gradient(90deg, #a78bfa, #c084fc, #d8b4fe);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .title {
+      font-size: 20px;
+      color: #c4b5fd;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .contact {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      color: #94a3b8;
+      font-size: 15px;
+    }
+
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section-title {
+      font-size: 19px;
+      font-weight: 700;
+      margin: 24px 0 14px 0;
+      color: #a78bfa;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .experience-item, .skills-container, .about {
+      background: rgba(10, 8, 25, 0.65);
+      border: 1px solid rgba(139, 92, 246, 0.15);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(12px);
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .item-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #f1f5f6;
+    }
+
+    .item-subtitle {
+      font-size: 16px;
+      color: #c4b5fd;
+      font-weight: 600;
+    }
+
+    .item-date {
+      color: #64748b;
+      font-size: 15px;
+    }
+
+    ul {
+      padding-left: 22px;
+      margin: 10px 0;
+    }
+
+    li {
+      margin-bottom: 7px;
+      color: #cbd5e1;
+    }
+
+    li strong {
+      color: #f1f5f6;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .skill {
+      background: rgba(165, 180, 252, 0.15);
+      color: #c4b5fd;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .about {
+      white-space: pre-wrap;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .no-print {
+      text-align: center;
+      margin-top: 30px;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    /* При печати — убираем анимацию и делаем белым */
+    @media print {
+      #matrixCanvas { display: none !important; }
+      body {
+        background: white !important;
+        color: black !important;
+      }
+      h1, .title, .section-title {
+        background: none !important;
+        color: black !important;
+      }
+      .experience-item, .skills-container, .about {
+        background: #f9fafb !important;
+        border: 1px solid #e2e8f0 !important;
+        box-shadow: none !important;
+      }
+      .skill {
+        background: #f1f5f6 !important;
+        color: #1e293b !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Canvas для Matrix -->
+  <canvas id="matrixCanvas"></canvas>
+
+  <div class="container">
+    <header>
+      <h1>Грачев Арсений Александрович</h1>
+      <div class="title">Cyber Security Specialist | AppSec | SOC | Vulnerability Manager</div>
+      <div class="contact">
+        <span>📍 Москва</span>
+        <span>✉️ yoyo1243@mail.ru</span>
+        <span>🐙 https://github.com/kiber-kotleta12</span>
+      </div>
+    </header>
+
+    <div class="section">
+      <h2 class="section-title"><i class="fas fa-user-shield"></i> Обо мне</h2>
+      <div class="about">Специалист по безопасной разработке (DevSecOps) с фокусом на управлении уязвимостями и автоматизации security-процессов.  
+Заведую интеграцией и сопровождением сканеров безопасности, формирую бэклог уязвимостей и сопровождаю их жизненный цикл — от обнаружения до верификации и устранения.  
+Разрабатываю автоматизацию для сбора, корреляции и приоритизации данных из сканеров, чтобы ускорить remediation и снизить риски перед релизами.  
+Работаю в тесной связке с командами разработки и эксплуатации, обеспечивая своевременность поставки безопасного продукта на отечественные полки ПО.</div>
+    </div>
+
+    <!--  -->
+    <!--  -->
+
+   <div class="section">
+  <h2 class="section-title"><i class="fas fa-briefcase"></i> Опыт работы</h2>
+
+    <div class="experience-item">
+    <div class="item-header">
+      <div>
+        <div class="item-title">AppSec</div>
+        <div class="item-subtitle">Сбербанк — Технологии</div>
+      </div>
+      <div class="item-date">Май 2024 — н.в. (1 г. 6 мес.)</div>
+    </div>
+    <ul>
+      <li>Управление жизненным циклом уязвимостей в разрабатываемых продуктах: от обнаружения до верификации и устранения.</li>
+      <li>Координация remediation-процессов между командами разработки, эксплуатации и информационной безопасности.</li>
+      <li>Интеграция результатов сканеров (<strong>govulncheck</strong>, <strong>grype</strong>, <strong>RedCheck</strong>) в единый процесс управления рисками.</li>
+    </ul>
+  </div>
+
+  <div class="experience-item">
+    <div class="item-header">
+      <div>
+        <div class="item-title">Vulnerability Manager</div>
+        <div class="item-subtitle">Газпром нефть ЦР</div>
+      </div>
+      <div class="item-date">Май 2023 — Май 2024 (1 г. 1 мес.)</div>
+    </div>
+    <ul>
+      <li>Построение и сопровождение процесса управления уязвимостями в крупной ИТ-инфраструктуре (200+ систем).</li>
+      <li>Автоматизация сбора и корреляции данных из разных инфраструктурных сканеров для формирования единой картины рисков.</li>
+      <li>Разработка метрик эффективности (MTTR, % уязвимостей вне SLA) для отчётности перед руководством.</li>
+    </ul>
+  </div>
+
+  <div class="experience-item">
+    <div class="item-header">
+      <div>
+        <div class="item-title">SOC L1 / Vulnerability Manager</div>
+        <div class="item-subtitle">ФГУП "НПП "Гамма"</div>
+      </div>
+      <div class="item-date">Октябрь 2022 — Май 2023 (8 мес.)</div>
+    </div>
+    <ul>
+      <li>Мониторинг и анализ инцидентов информационной безопасности с использованием SIEM-систем.</li>
+      <li>Проведение инфраструктурного тестирования на уязвимости с помощью сканеров.</li>
+      <li>Составление технических карточек инцидентов и рекомендаций по устранению для эксплуатационных команд.</li>
+      <li>Выявление уязвимых мест в безопасности компании.</li>
+    </ul>
+  </div>
+
+
+  <div class="experience-item">
+    <div class="item-header">
+      <div>
+        <div class="item-title">Sys admin</div>
+        <div class="item-subtitle">ПА Сибпромстрой</div>
+      </div>
+      <div class="item-date">Июнь 2017 — Август 2018 (1 г. 3 мес.)</div>
+    </div>
+    <ul>
+    <li>Обеспечение работоспособности корпоративной ИТ-инфраструктуры: серверы, сети, рабочие станции под управлением Windows/Linux.</li>
+    <li>Участие во внедрении базовых мер информационной безопасности: настройка политик паролей, ограничение прав пользователей, резервное копирование данных.</li>
+    <li>Подготовка и актуализация внутренней эксплуатационной документации, включая регламенты по ИБ для пользователей.</li>
+    <li>Проведение кратких инструктажей для сотрудников по безопасному использованию корпоративных ресурсов и защите от фишинга.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Образование</h2>
+  <div class="experience-item">
+    <div class="item-title">МИРЭА — Российский технологический университет (РТУ МИРЭА)</div>
+    <div class="item-subtitle">Бакалавр по направлению «Информационная безопасность»</div>
+    <div class="item-date">2018–2022</div>
+  </div>
+  <div class="experience-item">
+    <div class="item-title">МИРЭА — Российский технологический университет (РТУ МИРЭА)</div>
+    <div class="item-subtitle">Менеджмент ИТ-проектов (дополнительная специализация)</div>
+    <div class="item-date">2022–2023</div>
+  </div>
+  <div class="experience-item">
+    <div class="item-title">МИРЭА — Российский технологический университет (РТУ МИРЭА)</div>
+    <div class="item-subtitle">Магистр по направлению "Бизнес информатика"</div>
+    <div class="item-date">2022–2023</div>
+  </div>
+</div>
+    <div class="section">
+  <h2 class="section-title"><i class="fas fa-code"></i> Навыки</h2>
+  <div class="skills-container">
+    <div class="skills">
+      <!-- AppSec & Methodologies -->
+      <span class="skill">AppSec</span>
+      <span class="skill">Vulnerability Management</span>
+      <span class="skill">SOC Analyst</span>
+      <span class="skill">Penetration Testing</span>
+      <span class="skill">OWASP Top 10</span>
+      <span class="skill">MITRE ATT&CK</span>
+      <span class="skill">Kill Chain</span>
+      
+      
+      <!-- Languages & Automation -->
+      <span class="skill">Python</span>
+      <span class="skill">Bash / PowerShell</span>
+
+      <!-- Security Tools -->
+      <span class="skill">Burp Suite</span>
+      <span class="skill">Nmap / Metasploit</span>
+      <span class="skill">SIEM / IDS / IPS</span>
+
+      <!-- СЗИ -->
+      <span class="skill">СЗИ: VipNet</span>
+      <span class="skill">СЗИ: Secret Net Studio</span>
+      <span class="skill">Trivy</span>
+      <span class="skill">Grype</span>
+      <span class="skill">Govulncheck</span>
+      <span class="skill">Cargo</span>
+      <!-- Infrastructure -->
+      <span class="skill">Docker</span>
+      <span class="skill">Linux</span>
+      <span class="skill">VMware</span>
+      <span class="skill">k8s</span>
+      <span class="skill">Jenkins</span>
+      <span class="skill">Ansible</span>
+
+      <!-- Collaboration -->
+      <span class="skill">Jira / Confluence</span>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2 class="section-title"><i class="fas fa-language"></i> Языки</h2>
+  <div class="skills-container">
+    <div class="skills">
+      <span class="skill">Русский — родной</span>
+      <span class="skill">Английский — B1 (средний)</span>
+    </div>
+  </div>
+</div>
+    <div class="no-print">
+      -
+    </div>
+  </div>
+
+  <!-- Matrix Animation Script -->
+  <script>
+    (function() {
+      const canvas = document.getElementById('matrixCanvas');
+      const ctx = canvas.getContext('2d');
+
+      // Адаптация под размер окна
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      // Символы: кириллица + латиница + цифры + спецсимволы безопасности
+      const chars = "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/\\~`'\"CVESECURITYHACK01010101";
+      const charArray = chars.split('');
+
+      const fontSize = 14;
+      const columns = canvas.width / fontSize;
+      const drops = [];
+
+      for (let i = 0; i < columns; i++) {
+        drops[i] = Math.random() * -100;
+      }
+
+      function draw() {
+        // Полупрозрачный чёрный прямоугольник для "затухания"
+        ctx.fillStyle = 'rgba(10, 8, 25, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = '#a78bfa'; // Фиолетовый цвет символов
+        ctx.font = `${fontSize}px monospace`;
+
+        for (let i = 0; i < drops.length; i++) {
+          const text = charArray[Math.floor(Math.random() * charArray.length)];
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+          // Случайный сброс
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+      }
+
+      // Запуск анимации
+      if (!window.matchMedia("(print)").matches) {
+        setInterval(draw, 35);
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</body>
+</html>
